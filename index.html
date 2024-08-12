@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Grid Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="grid.css" rel="stylesheet">
+  </head>
+  <script>
+	const current_button = 'button1';
+	const current_to_tv = 'ZOOM'
+	const current_to_screenshare = 'PC'
+	const buttons = {button1: [1, 'ZOOM', 'TableHub Multiport Display'],
+		button2: [0, 'ZOOM', 'Front Multiport Display'],
+		button3: [0, 'ZOOM', 'Building HDMI'],
+		button4: [0, 'TableHub Multiport Display', 'None'],
+		button5: [0, 'TableHub User-Device', 'None'],
+		button6: [0, 'Front Multiport Display', 'None'],
+		button7: [0, 'Building HDMI', 'None']
+		};
+	
+	function resetButtons(){
+		for (const key of Object.keys(buttons)) {
+			buttons[key][0] = 0;
+			var property = document.getElementById(key);
+			property.style.backgroundColor = '#FFFFFF'
+		}
+	}
+    
+    function setButton(btn){
+		resetButtons();
+		var property = document.getElementById(btn);
+		document.getElementById("hdmi1").innerHTML=buttons[btn][1];
+		document.getElementById("hdmi2").innerHTML=buttons[btn][2];
+		property.style.backgroundColor = '#FB82E9'
+		buttons[btn][0] = 1
+	}
+	
+    function setColor(btn, color) {
+        var property = document.getElementById(btn);
+        if (buttons[btn] == 0) {
+            property.style.backgroundColor = "#FFFFFF"
+            buttons[btn] = 1;        
+        }
+        else {
+            property.style.backgroundColor = "#7FFF00"
+            buttons[btn] = 0;
+        }
+    }
+    
+    window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   document.getElementById("hdmi1").innerHTML='Zoom';
+   document.getElementById("hdmi2").innerHTML='USER PC';
+} 
+</script>
+
+  <body>
+    <div class="container">
+	  <div class="row">
+		<h1>HDMI TV OUTPUT: </h1><h1 class="text-primary" id="hdmi1" ></h1>
+	  </div>
+	  <div class="row">
+	    <h1>HDMI SCREENSHARE: </h1><h1 class="text-primary" id="hdmi2" ></h1>
+      <div class="row">
+        <div class="col-md-4 text-center">
+			<button id='button1' onclick="setButton('button1')">
+				<p><strong>To TV: </strong>Zoom</p>
+				<p><strong>To ScreenShare:</strong> TableHub Multiport Display</p>
+			</button>
+        </div>
+        <div class="col-md-4 text-center">
+			<button id='button2' onclick="setButton('button2')">
+				<p><strong>To TV: </strong>Zoom</p>
+				<p><strong>To ScreenShare:</strong> Front Multiport Display</p>
+			</button>
+        </div>
+        <div class="col-md-4 text-center">
+			<button id='button3' onclick="setButton('button3')">
+				<p><strong>To TV: </strong>Zoom</p>
+				<p><strong>ScreenShare: </strong> Building HDMI</p>
+			</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 text-center">
+			<button id='button4' onclick="setButton('button4')">
+				<p><strong>To TV: </strong>TableHub Multiport Display</p>
+				<p><strong>ScreenShare: </strong> None</p>
+			</button>
+        </div>
+        <div class="col-md-6 text-center">
+			<button id='button5' onclick="setButton('button5')">
+				<p><strong>To TV: </strong>TableHub User HDMI</p>
+				<p><strong>ScreenShare: </strong>None</p></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 text-center">
+			<button id='button6' onclick="setButton('button6')">
+				<p><strong>To TV: </strong>Front Multiport Display</p>
+				<p><strong>ScreenShare: </strong>None</p></button></button>
+        </div>
+        <div class="col-md-6 text-center">
+			<button id='button7' onclick="setButton('button7')">
+				<p><strong>To TV: </strong>Building HDMI</p>
+				<p><strong>ScreenShare:</strong></storng> None</p></button></button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

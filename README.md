@@ -20,3 +20,33 @@ http://192.168.0.120/aj.html?a=command&cmd=B&p1=0 /* Input 1 to Output 2
 http://192.168.0.120/aj.html?a=command&cmd=B&p1=0 /* Input 2 to Output 2
 http://192.168.0.120/aj.html?a=command&cmd=B&p1=0 /* Input 3 to Output 2
 http://192.168.0.120/aj.html?a=command&cmd=B&p1=0 /* Input 4 to Output 2
+
+  <script>
+      var xhr = new XMLHttpRequest();
+
+      function getHttp(){
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+            var values = JSON.parse(xhr.responseText);
+            alert(xhr.responseText);
+            console.log(values);
+          }
+        }
+        xhr.open("GET", "https://api.ncbi.nlm.nih.gov/datasets/v2alpha/gene/id/59067");
+        xhr.send();
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Bootstrap grid examples</h1>
+        <p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+        <button id="test" onclick="getHttp()">Test Button</button>
+      </div>
+
+    </div> <!-- /container -->
+  </body>

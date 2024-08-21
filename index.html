@@ -7,40 +7,56 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Grid Template for Bootstrap</title>
+    <title>Sacramento Stake HC Room Control</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="grid.css" rel="stylesheet">
   </head>
   <script>
+    var xhr = new XMLHttpRequest();
+    const hdmi1 = '192.168.0.120';
+    const hdmi2 = '192.168.0.121';
 	const current_button = 'button1';
 	const current_to_tv = 'ZOOM'
 	const current_to_screenshare = 'PC'
-	const buttons = {button1: [1, 'ZOOM', 'TableHub Multiport Display'],
-		button2: [0, 'ZOOM', 'Front Multiport Display'],
-		button3: [0, 'ZOOM', 'Building HDMI'],
-		button4: [0, 'TableHub Multiport Display', 'None'],
-		button5: [0, 'TableHub User-Device', 'None'],
-		button6: [0, 'Front Multiport Display', 'None'],
-		button7: [0, 'Building HDMI', 'None']
+	const buttons = {button1: [1, 'ZOOM', 'TableHub Multiport Display', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=1', 'http://192.168.0.120/aj.html?a=command&cmd=B&p1=2'],
+		button2: [0, 'ZOOM', 'Front Multiport Display', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=1', 'http://192.168.0.120/aj.html?a=command&cmd=B&p1=2'],
+		button3: [0, 'ZOOM', 'Building HDMI', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=1', 'http://192.168.0.120/aj.html?a=command&cmd=B&p1=3'],
+		button4: [0, 'TableHub Multiport Display', 'None', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=4', 'http://192.168.0.121/aj.html?a=command&cmd=A&p1=1'],
+		button5: [0, 'TableHub User-Device', 'None', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=4', 'http://192.168.0.121/aj.html?a=command&cmd=A&p1=2'],
+		button6: [0, 'Front Multiport Display', 'None',  'http://192.168.0.120/aj.html?a=command&cmd=A&p1=2', 'http://192.168.0.120/aj.html?a=command&cmd=B&p1=0'],
+		button7: [0, 'Building HDMI', 'None', 'http://192.168.0.120/aj.html?a=command&cmd=A&p1=3',  'http://192.168.0.120/aj.html?a=command&cmd=B&p1=0']
 		};
+    
+    function getHttp(url){
+        console.log(url);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {;
+            console.log("Success");
+          }
+        }
+        xhr.open("GET", url);
+        xhr.send();
+    }
 	
-	function resetButtons(){
-		for (const key of Object.keys(buttons)) {
-			buttons[key][0] = 0;
-			var property = document.getElementById(key);
-			property.style.backgroundColor = '#FFFFFF'
-		}
-	}
+    function resetButtons(){
+        for (const key of Object.keys(buttons)) {
+            buttons[key][0] = 0;
+            var property = document.getElementById(key);
+            property.style.backgroundColor = '#FFFFFF'
+        }
+    }
     
     function setButton(btn){
 		resetButtons();
 		var property = document.getElementById(btn);
 		document.getElementById("hdmi1").innerHTML=buttons[btn][1];
+        getHttp(buttons[btn][3]);
 		document.getElementById("hdmi2").innerHTML=buttons[btn][2];
+        getHttp(buttons[btn][4]);
 		property.style.backgroundColor = '#FB82E9'
 		buttons[btn][0] = 1
 	}
